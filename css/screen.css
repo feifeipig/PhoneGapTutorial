@@ -1,0 +1,117 @@
+    /* Large desktop */
+    @media (min-width: 980px) {
+      body {
+        padding-top: 60px;
+      }
+      .linediv-l {
+        border-right: 1px white solid;
+      }
+      .linediv-r {
+        border-left: 1px white solid;
+      }
+    }
+ 
+    /* Landscape phones and down */
+    @media (max-width: 480px) {
+      .copy {
+        padding: 2.5% 10%;
+      }
+      .linediv-l {
+        border-bottom: 1px white solid;
+      }
+      .linediv-r {
+        border-top: 1px white solid;
+      }
+    }
+
+    /*All form factors */
+
+    
+    /* Video pitch and Action */ 
+    .pitch {
+      padding: 2.5% 0%;
+    }
+    .order {
+      padding: 2% 0%;
+    }
+    .actions {
+      background-color: #343434;
+      padding: 3% 0%;
+    }
+    .video, .thermometer, .order, .social, .statistics {
+      text-align: center;
+    }
+    .statistics h3, .statistics p {
+      color: white;
+    }
+
+ 
+     
+/* search box */
+
+.floater {
+position:absolute;
+z-index:2;
+bottom:0;
+right:0;
+display:none;
+padding:0;
+}
+
+.floater td {
+font-family: Gill, Helvetica, sans-serif;
+background-color:white;
+border:1px inset #979797;
+color:black;
+}
+
+.matchedSmartInputItem {
+font-size:0.8em;
+padding: 5px 10px 1px 5px;
+margin:0;
+cursor:pointer;
+}
+
+.selectedSmartInputItem {
+color:white;
+background-color:#3875D7;
+}
+
+#smartInputResults {
+padding:0;margin:0;
+}
+
+.siwCredit {
+margin:0;padding:0;margin-top:10px;font-size:0.7em;color:black;
+}
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   speak for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}

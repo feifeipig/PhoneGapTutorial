@@ -1,34 +1,49 @@
-var app = {
+function init() {
+    document.addEventListener("deviceready", deviceReady, true);
+    checkPreAuth();
+    delete init;
+}
 
-    findByName: function() {
-        console.log('findByName');
-        this.store.findByName($('.search-key').val(), function(employees) {
-            var l = employees.length;
-            var e;
-            $('.employee-list').empty();
-            for (var i=0; i<l; i++) {
-                e = employees[i];
-                $('.employee-list').append('<li><a href="#employees/' + e.id + '">' + e.firstName + ' ' + e.lastName + '</a></li>');
-            }
-        });
-    },
+function checkPreAuth() {
+    var form = $("#loginForm");
+    console.log("username="+window.localStorage["username"]);
+    console.log("password="+window.localStorage["password"]);
+    if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+        $("#username", form).val(window.localStorage["username"]);
+        $("#password", form).val(window.localStorage["password"]);
+        handleLogin();
+    }
+}
 
-    initialize: function() {
-        var self = this;
-        this.store = new WebSqlStore(function() {
-            self.showAlert('Store Initialized', 'Info');
-        });
-        $('.search-key').on('keyup', $.proxy(this.findByName, this));
-    },
-    
-    showAlert: function (message, title) {
-        if (navigator.notification) {
-            navigator.notification.alert(message, null, title, 'OK');
-        } else {
-            alert(title ? (title + ": " + message) : message);
-        }
-    },
+function handleLogin() {
+    var form = $("#loginForm");
+    //disable the button so we can't resubmit while we wait
+    $("#submitButton",form).attr("disabled","disabled");
+    var u = $("#username", form).val();
+    var p = $("#password", form).val();
+    console.log("click");
+    if(u != '' && p!= '') {
+       // $.post("http://www.hecaiquan.com/service.cfc?method=login&returnformat=json", {username:u,password:p}, function(res) {
+       //     if(res == true) {
+                //store
+                window.localStorage["username"] = u;
+                window.localStorage["password"] = p;
+                $.mobile.changePage("home.html");
+        //    } else {
+        //        navigator.notification.alert("Your login failed", function() {});
+        //    }
+        //    $("#submitButton").removeAttr("disabled");
+      //  },"json");
+    } else {
+        //Thanks Igor!
+        navigator.notification.alert("You must enter a username and password", function() {});
+        $("#submitButton").removeAttr("disabled");
+    }
+        return false;
+    }
 
-};
+    function deviceReady() {
 
-app.initialize();
+        $("#loginForm").on("submit",handleLogin);
+
+    }
